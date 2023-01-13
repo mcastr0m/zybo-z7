@@ -462,7 +462,7 @@ int main() {
 
     while(image_part < PARTS) {
     	// 1. Transferir ambas imagenes a los bloques de memoria del FPGA.
-        for(u32 i = 0; i < (LENGHTx1C / PARTS) + 1600; i++) {
+        for(u32 i = 0; i < (LENGHTx1C / PARTS) + 960; i++) {
             set_ip_value(REG_SLV_0, ESCRITURA);
             set_ip_value(REG_SLV_2, i);
             set_ip_value(REG_SLV_3, *(img_gr_left + image_index));
@@ -477,7 +477,7 @@ int main() {
         }
 
         // 3. Recuperar la informacion obtenida.
-        for(u32 i = 0; i < (LENGHTx1C / PARTS) + 1600; i++) {
+        for(u32 i = 0; i < (LENGHTx1C / PARTS) + 960; i++) {
             set_ip_value(REG_SLV_0, LECTURA);
             set_ip_value(REG_SLV_2, i);
             *(img_deph + deph_index) = get_ip_value(REG_SLV_5);
@@ -491,8 +491,8 @@ int main() {
         }
 
         image_part += 1;
-        image_index -= 3200;
-        deph_index -= 3200;
+        image_index -= 1920;
+        deph_index -= 1920;
     }
 
     // Applicar un filtro de mediana a el resultado final.
